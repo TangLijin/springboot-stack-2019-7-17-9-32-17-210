@@ -40,4 +40,20 @@ public class CrimeFileRepositoryTest {
         Assertions.assertEquals(crimeFile.getSubjectiveDescription(),crimeFiles.get(0).getSubjectiveDescription());
 
     }
+
+    @Test
+    public void should_return_crime_file_given_id(){
+
+        //given
+        CrimeFile crimeFile = new CrimeFile("badbadbad","good");
+        crimeFileRepository.save(crimeFile);
+
+//        when
+        CrimeFile expect = crimeFileRepository.findById(crimeFile.getId()).get();
+
+//        then
+        Assertions.assertEquals(expect.getId(),crimeFile.getId());
+        Assertions.assertEquals(expect.getObjectiveDescription(),crimeFile.getObjectiveDescription());
+        Assertions.assertEquals(expect.getSubjectiveDescription(),crimeFile.getSubjectiveDescription());
+    }
 }
