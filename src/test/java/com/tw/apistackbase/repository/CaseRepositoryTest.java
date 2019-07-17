@@ -12,6 +12,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 
 import java.util.Comparator;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @RunWith(SpringRunner.class)
 @DataJpaTest
@@ -89,25 +90,28 @@ public class CaseRepositoryTest {
 
     }
 
-//    @Test
-//    public void should_return_all_cases_given_case_name(){
-//        //given
-//        Case case1 = new Case("case1",123456789L);
-//        Case case2 = new Case("case1",223456789L);
-//        Case case3 = new Case("case1",323456789L);
-//        caseRepository.save(case1);
-//        caseRepository.save(case2);
-//        caseRepository.save(case3);
-//
-//        //when
-//        List<Case> caseList = (List<Case>)caseRepository.findAll();
-//
-//
-//
-//        //then
-//
-//
-//    }
+    @Test
+    public void should_return_all_cases_given_case_name(){
+        //given
+        Case case1 = new Case("case1",123456789L);
+        Case case2 = new Case("case1",223456789L);
+        Case case3 = new Case("case2",323456789L);
+        caseRepository.save(case1);
+        caseRepository.save(case2);
+        caseRepository.save(case3);
+
+        //when
+        //List<Case> caseList = (List<Case>)caseRepository.findAll();
+        List<Case> caseList =  ((List<Case>)caseRepository.findAll()).stream().filter(ca -> ca.getCaseName() == "case1")
+                .collect(Collectors.toList());
+
+
+        //then
+        Assertions.assertEquals(caseList.get(0),case1);
+        Assertions.assertEquals(caseList.get(1),case2);
+
+
+    }
 
     @Test
     public void should_return_false_when_delete_a_case_given_case_id(){
