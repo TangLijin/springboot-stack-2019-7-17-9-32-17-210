@@ -1,9 +1,6 @@
 package com.tw.apistackbase.entity;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 @Entity
 public class CrimeFile {
@@ -14,12 +11,21 @@ public class CrimeFile {
     private String objectiveDescription;
     private String subjectiveDescription;
 
+    @OneToOne(cascade = CascadeType.ALL)
+    private Case theCase;
+
     public CrimeFile(String objectiveDescription, String subjectiveDescription) {
         this.objectiveDescription = objectiveDescription;
         this.subjectiveDescription = subjectiveDescription;
     }
 
     public CrimeFile() {
+    }
+
+    public CrimeFile(String objectiveDescription, String subjectiveDescription, Case theCase) {
+        this.objectiveDescription = objectiveDescription;
+        this.subjectiveDescription = subjectiveDescription;
+        this.theCase = theCase;
     }
 
     public String getObjectiveDescription() {
@@ -41,4 +47,14 @@ public class CrimeFile {
     public Long getId() {
         return id;
     }
+
+    public Case getCase() {
+        return theCase;
+    }
+
+    public void setCase(Case theCase) {
+        this.theCase = theCase;
+    }
+
+
 }
