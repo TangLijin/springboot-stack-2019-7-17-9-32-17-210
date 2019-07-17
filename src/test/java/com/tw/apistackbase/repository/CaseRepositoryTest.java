@@ -77,7 +77,7 @@ public class CaseRepositoryTest {
         caseRepository.save(case1);
         caseRepository.save(case2);
         caseRepository.save(case3);
-        
+
         //when
         List<Case> orderList = (List<Case>)caseRepository.findAll();
         orderList.sort(Comparator.comparing(Case::getHappenTime).reversed());
@@ -87,5 +87,43 @@ public class CaseRepositoryTest {
         Assertions.assertSame(case2,orderList.get(1));
         Assertions.assertSame(case3,orderList.get(0));
 
+    }
+
+//    @Test
+//    public void should_return_all_cases_given_case_name(){
+//        //given
+//        Case case1 = new Case("case1",123456789L);
+//        Case case2 = new Case("case1",223456789L);
+//        Case case3 = new Case("case1",323456789L);
+//        caseRepository.save(case1);
+//        caseRepository.save(case2);
+//        caseRepository.save(case3);
+//
+//        //when
+//        List<Case> caseList = (List<Case>)caseRepository.findAll();
+//
+//
+//
+//        //then
+//
+//
+//    }
+
+    @Test
+    public void should_return_false_when_delete_a_case_given_case_id(){
+        //given
+        Case case1 = new Case("case1",123456789L);
+        Case case2 = new Case("case2",223456789L);
+        Case case3 = new Case("case3",323456789L);
+        caseRepository.save(case1);
+        caseRepository.save(case2);
+        caseRepository.save(case3);
+
+        //when
+
+        caseRepository.deleteById(case1.getId());
+
+        //then
+        Assertions.assertEquals(false,caseRepository.existsById(case1.getId()));
     }
 }
