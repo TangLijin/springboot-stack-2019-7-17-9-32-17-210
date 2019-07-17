@@ -19,17 +19,50 @@ public class CaseRepositoryTest {
     @Autowired
     private CaseRepository caseRepository;
 
+//    @BeforeEach
+//    public void init(){
+//        caseRepository.deleteAll();
+//        Case case1 = new Case("case1",123456789L);
+//        Case case2 = new Case("case2",223456789L);
+//        Case case3 = new Case("case3",323456789L);
+//        Case case4 = new Case("case4",423456789L);
+//        Case case5 = new Case("case5",523456789L);
+//        caseRepository.save(case1);
+//        caseRepository.save(case2);
+//        caseRepository.save(case3);
+//        caseRepository.save(case4);
+//        caseRepository.save(case5);
+//    }
+
+
     @Test
     public void should_return_case_when_create_case(){
-        //given
+//        given
         Case aCase = new Case("case1",123456789L);
         caseRepository.save(aCase);
-         //when
+//         when
         List<Case> caseList = (List<Case>) caseRepository.findAll();
 
         //then
         Assertions.assertEquals(1, caseList.size());
         Assertions.assertEquals("case1",caseList.get(0).getCaseName());
 
+    }
+
+    @Test
+    public void should_return_case_given_id(){
+
+        //given
+        Case case2 = new Case("case2",223456789L);
+        caseRepository.save(case2);
+
+
+//        when
+        Case expect = caseRepository.findById(case2.getId()).get();
+
+//        then
+        Assertions.assertEquals(expect.getId(),case2.getId());
+        Assertions.assertEquals(expect.getCaseName(),case2.getCaseName());
+        Assertions.assertEquals(expect.getHappenTime(),case2.getHappenTime());
     }
 }

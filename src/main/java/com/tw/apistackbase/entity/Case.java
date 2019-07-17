@@ -33,4 +33,8 @@ public class Case {
     public void setHappenTime(Long happenTime) {
         this.happenTime = happenTime;
     }
+
+    public Long getId() {
+        return id;
+    }
 }
